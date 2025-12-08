@@ -6,7 +6,6 @@ class Game():
         self.difficulty = difficulty
         self.platforms = platforms
         self.multiplayer = multiplayer
-        
     def display_info(self):
         print(f"""Game Information: {self.name}
                   Genre(s): {self.genre}
@@ -60,16 +59,16 @@ class GameLibrary():
             filtered.append(game)
         # Sort filtered
         filtered.sort()
-        # Print results
+        # Print Results
         if filtered:
             for game in filtered:
                 game.display_info()
         else:
             print("No games matched your filters.")
+
         print("To view more details about a specific game, call game.display_info()")
-        # Return list for testing
+        # Return for testing
         return filtered
-    
     def rank_games(self, user_profile):
         ranked = []
         for game in self.games:
@@ -87,16 +86,17 @@ class GameLibrary():
                     score += 1
             # Multiplayer match
             if game.multiplayer == user_profile.multiplayer_preference:
-                score += 1
+                score += 2
             # Difficulty match
             if game.difficulty == user_profile.skill_level:
                 score += 2
             ranked.append((score, game))
         # Sort by descending score
-        ranked.sort(reverse=True)
+        ranked.sort(key=lambda x: x[0], reverse=True)
         # Print results
         for score, game in ranked:
-            print(f"{game.name}: {score}")
+            print(f"{game.name}: {score} points matched")
+            
         print("To view more details about any game, call game.display_info()")
         # Return list for testing
         return ranked

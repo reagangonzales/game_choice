@@ -65,6 +65,7 @@ class GameLibrary():
             filtered.append(game)
         # Sort filtered
         filtered.sort()
+        return filtered
         for game in filtered:
             print(f"- {game.name}")
         print("To view more details about a specific game, call:")
@@ -98,6 +99,7 @@ class GameLibrary():
             ranked.append((score, game))
         # Sort by descending score
         ranked.sort(reverse=True)
+        return ranked
         for score, game in ranked:
             print(f"- {game.name}: {score} points matched")
         print("To view more details about a specific game, call:")

@@ -8,17 +8,23 @@ class Game():
         self.multiplayer = multiplayer
         
     def display_info(self):
-        print(f"""Game Information:
-              Title: {self.name}
-              Genre(s): {self.genre}
-              Length: {self.length_hours} hour(s)
-              Difficulty: {self.difficulty}
-              Platforms: {self.platforms}
-              Multiplayer: {self.multiplayer}""")
+        print(f"""Game Information: {self.name}
+                  Genre(s): {self.genre}
+                  Length: {self.length_hours} hour(s)
+                  Difficulty: {self.difficulty}
+                  Platforms: {self.platforms}
+                  Multiplayer: {self.multiplayer}""")
         
 class GameLibrary():
     def __init__(self):
         self.games = []
+
+    def display_info(self):
+        if not self.games:
+            print("No games in the library.")
+        else:
+          for game in self.games:
+            game.display_info()
 
     def add_game(self, game):
         self.games.append(game)
@@ -27,37 +33,44 @@ class GameLibrary():
         if game in self.games:
             self.games.remove(game)
     
-    def filter_games(self, user_profile):
+    def filter_games(self, user_profile,
+                     filter_genre=True,
+                     filter_length=True,
+                     filter_skill=True,
+                     filter_platform=True,
+                     filter_multiplayer=True):
         filtered = []
         for game in self.games:
-            # Genre check (matches at least one)
-            genre_ok = any(g in user_profile.preferred_genres for g in game.genre)
+            # Genre check
+            if filter_genre and user_profile.preferred_genres:
+                if not any(g in user_profile.preferred_genres for g in game.genre):
+                    continue
             # Length check
-            length_ok = (
-                user_profile.max_game_length is None or
-                game.length_hours <= user_profile.max_game_length)
-            # Skill level check
-            skill_ok = (
-                user_profile.skill_level is None or
-                game.difficulty.lower() == user_profile.skill_level.lower())
+            if filter_length and user_profile.max_game_length is not None:
+                if game.length_hours > user_profile.max_game_length:
+                    continue
+            # Skill check
+            if filter_skill and user_profile.skill_level:
+                if game.difficulty.lower() != user_profile.skill_level.lower():
+                    continue
             # Platform check
-            platform_ok = any(p in user_profile.platforms for p in game.platforms)
+            if filter_platform and user_profile.platforms:
+                if not any(p in user_profile.platforms for p in game.platforms):
+                    continue
             # Multiplayer check
-            mp_ok = (
-                user_profile.multiplayer_preference is None or
-                game.multiplayer == user_profile.multiplayer_preference)
-            # Only add if ALL criteria are satisfied
-            if genre_ok and length_ok and skill_ok and platform_ok and mp_ok:
-                filtered.append(game)
-        if not filtered:
-            print("No games match your filters.\n")
-        else:
-            print("Filtered Games:")
-            for game in filtered:
-                print(f"- {game.name}")
+            if filter_multiplayer and user_profile.multiplayer_preference is not None:
+                if game.multiplayer != user_profile.multiplayer_preference:
+                    continue
 
-    print("\nTo view more details about a game, call:")
-    print("    game.display_info()")
+            filtered.append(game)
+        # Sort filtered
+        filtered.sort()
+        for game in filtered:
+            print(f"- {game.name}")
+        print("To view more details about a specific game, call:")
+        print("    game.display_info()")
+        print("To view more game details about an entire game library, call:")
+        print("    library.display_info()")
     
     def rank_games(self, user_profile):
         ranked = []
@@ -78,11 +91,16 @@ class GameLibrary():
             # Multiplayer match
             if game.multiplayer == user_profile.multiplayer_preference:
                 score += 1
+            # Difficulty match
+            if game.difficulty == user_profile.skill_level:
+                score += 2
 
             ranked.append((score, game))
         # Sort by descending score
         ranked.sort(reverse=True)
         for score, game in ranked:
             print(f"- {game.name}: {score} points matched")
-        print("\nTo view more details about a game, call:")
+        print("To view more details about a specific game, call:")
         print("    game.display_info()")
+        print("To view more game details about an entire game library, call:")
+        print("    library.display_info()")

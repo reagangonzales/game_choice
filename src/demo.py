@@ -53,3 +53,8 @@ print("Ranking Game Library by my user profile")
 ranked = library.rank_games(profile)
 # -----------------------------------------------
 # Recommendation Engine
+engine = RecommendationEngine(ranked)
+top_games = engine.get_top_games(min_score=4)
+print(top_games)
+random_pick = engine.get_random_game()
+print("Random recommended game:", random_pick.name)

@@ -18,21 +18,17 @@ class Game():
 class GameLibrary():
     def __init__(self):
         self.games = []
-
     def display_info(self):
         if not self.games:
             print("No games in the library.")
         else:
           for game in self.games:
             game.display_info()
-
     def add_game(self, game):
         self.games.append(game)
-    
     def remove_game(self, game):
         if game in self.games:
             self.games.remove(game)
-    
     def filter_games(self, user_profile,
                      filter_genre=True,
                      filter_length=True,
@@ -61,21 +57,21 @@ class GameLibrary():
             if filter_multiplayer and user_profile.multiplayer_preference is not None:
                 if game.multiplayer != user_profile.multiplayer_preference:
                     continue
-
             filtered.append(game)
         # Sort filtered
         filtered.sort()
+        # Print results
+        if filtered:
+            for game in filtered:
+                game.display_info()
+        else:
+            print("No games matched your filters.")
+        print("To view more details about a specific game, call game.display_info()")
+        # Return list for testing
         return filtered
-        for game in filtered:
-            print(f"- {game.name}")
-        print("To view more details about a specific game, call:")
-        print("    game.display_info()")
-        print("To view more game details about an entire game library, call:")
-        print("    library.display_info()")
     
     def rank_games(self, user_profile):
         ranked = []
-
         for game in self.games:
             score = 0
             # Genre match
@@ -95,14 +91,12 @@ class GameLibrary():
             # Difficulty match
             if game.difficulty == user_profile.skill_level:
                 score += 2
-
             ranked.append((score, game))
         # Sort by descending score
         ranked.sort(reverse=True)
-        return ranked
+        # Print results
         for score, game in ranked:
-            print(f"- {game.name}: {score} points matched")
-        print("To view more details about a specific game, call:")
-        print("    game.display_info()")
-        print("To view more game details about an entire game library, call:")
-        print("    library.display_info()")
+            print(f"{game.name}: {score}")
+        print("To view more details about any game, call game.display_info()")
+        # Return list for testing
+        return ranked

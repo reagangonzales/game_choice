@@ -39,7 +39,8 @@ apex_legends.display_info()
 # Remove games - lets switch out a game
 print("------------------------------")
 print("Remove and add to Game Library")
-library.remove_game(Game("Stardew Valley", ["Simulation"], 50, "Beginner", ["PC"], False))
+library.remove_game("Stardew Valley")
+# library.remove_game(Game("Stardew Valley", ["Simulation"], 50, "Beginner", ["PC"], False))
 library.add_game(Game("Minecraft", ["Simulation"], 60,"Beginner",["PC","Xbox","PlayStation"], True))
 library.display_info()
 # Filter games
@@ -52,8 +53,3 @@ print("Ranking Game Library by my user profile")
 ranked = library.rank_games(profile)
 # -----------------------------------------------
 # Recommendation Engine
-
-
-
-
-

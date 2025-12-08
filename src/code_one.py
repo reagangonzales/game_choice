@@ -73,7 +73,7 @@ class GameLibrary():
                     continue
             filtered.append(game)
         # Sort filtered
-        filtered.sort()
+        filtered.sort(key=lambda x: x.score, reverse=True)
         # Print Results
         if filtered:
             for game in filtered:

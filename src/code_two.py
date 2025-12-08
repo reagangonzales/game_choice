@@ -25,23 +25,22 @@ class UserProfile:
            print(f"Your current preferred multiplayer condition (True,False): {self.multiplayer_preference}")
         }
        return preferences
-    
 
 import random
-
-class RecommendationEngine: 
-    def __init__(self, rank_games):
-        self.rank_games = rank_games
+class RecommendationEngine:
+    def __init__(self, ranked_games):
+        # ranked_games = [(score, game), (score, game), ...]
+        self.ranked_games = ranked_games
         self.top_games = []
-
-    def get_top_games(self, rank_games):
-        for games in rank_games: 
-            if rank_games.score >= 4:
-                self.top_games = self.top_games.append(games) 
-            if rank_games.score < 4:
-                return None
-        return self.top_games 
-    
-    def get_random_game(games, top_games):
-        random_game = random.choice(top_games)
-        return random_game
+    def get_top_games(self, min_score=4):
+        """Return games where score >= min_score."""
+        self.top_games = []
+        for score, game in self.ranked_games:
+            if score >= min_score:
+                self.top_games.append(game)
+        return self.top_games
+    def get_random_game(self):
+        """Return a random game from top-scoring games."""
+        if not self.top_games:
+            return None
+        return random.choice(self.top_games)

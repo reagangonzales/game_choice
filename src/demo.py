@@ -27,6 +27,7 @@ apex_legends = Game("Apex Legends", ["Shooter"], 30, "Advanced", ["PC"], True)
 library.add_game(apex_legends)
 # Other way to add games
 library.add_game(Game("God of War", ["Action"], 25, "Intermediate", ["PlayStation"], False))
+library.add_game(Game("Roblox",["Simulation"], 0, "Beginner", ["PC","Xbox","PlayStation"], True))
 library.add_game(Game("Stardew Valley", ["Simulation"], 50, "Beginner", ["PC"], False))
 print("------------------------------")
 print("Display Game Library Method")

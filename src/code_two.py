@@ -19,7 +19,7 @@ class UserProfile:
     def display_preferences(self):
        preferences = {
            print(f"Your current preferred genres: {self.preferred_genres}"),
-           print(f"Your current preferred maximum game length (in minutes): {self.max_game_length}"),
+           print(f"Your current preferred maximum game length: {self.max_game_length} hour(s)"),
            print(f"Your current preferred skill level (beginner, intermediate, advanced): {self.skill_level}"), 
            print(f"Your current preferred gaming platforms: {self.platforms}"), 
            print(f"Your current preferred multiplayer condition (yes/no): {self.multiplayer_preference}")

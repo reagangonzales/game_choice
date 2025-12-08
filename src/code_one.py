@@ -25,9 +25,19 @@ class GameLibrary():
             game.display_info()
     def add_game(self, game):
         self.games.append(game)
-    def remove_game(self, game):
-        if game in self.games:
-            self.games.remove(game)
+    def remove_game(self, game_or_name):
+        """
+        Removes a game from the library.
+        Can accept either a Game object or a string (game name).
+        """
+        if isinstance(game_or_name, Game):
+            # Remove by matching Game object attributes
+            self.games = [g for g in self.games if g.name != game_or_name.name]
+        elif isinstance(game_or_name, str):
+            # Remove by name
+            self.games = [g for g in self.games if g.name != game_or_name]
+        else:
+            raise ValueError("Argument must be a Game object or a string (game name).")
     def filter_games(self, user_profile,
                      filter_genre=True,
                      filter_length=True,

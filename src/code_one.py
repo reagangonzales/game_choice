@@ -6,6 +6,11 @@ class Game():
         self.difficulty = difficulty
         self.platforms = platforms
         self.multiplayer = multiplayer
+    # Printing methods to better output a game
+    def __str__(self):
+        return f"{self.name} ({', '.join(self.genre)})"
+    def __repr__(self):
+        return self.__str__()
     def display_info(self):
         print(f"""Game Information: {self.name}
                   Genre(s): {self.genre}
@@ -106,7 +111,7 @@ class GameLibrary():
         # Print results
         for score, game in ranked:
             print(f"{game.name}: {score} points matched")
-            
+        
         print("To view more details about any game, call game.display_info()")
         # Return list for testing
         return ranked

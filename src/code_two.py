@@ -79,14 +79,14 @@ class UserProfile:
         -------
         None
         """
-       preferences = {
+        preferences = {
            print(f"Your current preferred genres: {self.preferred_genres}"),
            print(f"Your current preferred maximum game length: {self.max_game_length} hour(s)"),
            print(f"Your current preferred skill level (Beginner, Intermediate, Advanced): {self.skill_level}"), 
            print(f"Your current preferred gaming platforms: {self.platforms}"), 
            print(f"Your current preferred multiplayer condition (True,False): {self.multiplayer_preference}")
         }
-       return preferences
+        return preferences
 
 import random
 class RecommendationEngine:
@@ -142,6 +142,6 @@ class RecommendationEngine:
         Game or None
             A randomly chosen Game object from top_games, or None if no top games exist.
         """
-        if not self.top_games:
-            return None
-        return random.choice(self.top_games)
+         if not self.top_games:
+                return None
+         return random.choice(self.top_games)
